@@ -5,40 +5,47 @@ import { randomUUID } from "crypto"
 
 export const productsRouter = Router()
 
-const personasManager = new FileManager('./database/products.json')
+const productsManager = new FileManager('./database/products.json')
 
 productsRouter.get('/', async (req, res, next) => {
     try {
-        const personas = await personasManager.buscarCosas()
-        res.json(personas)
+        let limit = req.query.limit
+        const productos = await productsManager.buscar()
+        if(!limit) return res.json(productos)
+
+        productos.splice(limit, productos.length)
+        res.json(productos)
     } catch (error) {
         next(error)
     }
 })
+
 productsRouter.get('/:pid', async (req, res, next) => {
     try {
-        const persona = await personasManager.buscarCosaSegunId(req.params.pid)
-        res.json(persona)
+        const producto = await productsManager.buscarSegunId(req.params.pid)
+        res.json(producto)
     } catch (error) {
         next(error)
     }
 })
+
 productsRouter.post('/', async (req, res, next) => {
     try {
-        const persona = new Producto({
-            id: randomUUID(),
-            ...req.body
+        const producto = new Producto({
+            ...req.body,
+            id: randomUUID()
         })
-        const agregada = await personasManager.guardarCosa(persona)
+        const agregada = await productsManager.guardar(producto)
         res.json(agregada)
     } catch (error) {
         next(error)
     }
 })
+
 productsRouter.put('/:pid', async (req, res, next) => {
-    let personaNueva
+    let productoNuevo
     try {
-        personaNueva = new Producto({
+        productoNuevo = new Producto({
             id: req.params.pid,
             ...req.body
         })
@@ -48,17 +55,17 @@ productsRouter.put('/:pid', async (req, res, next) => {
     }
 
     try {
-        const personaReemplazada = await personasManager.reemplazarCosa(req.params.pid, personaNueva)
-        res.json(personaReemplazada)
+        const productoReemplazado = await productsManager.reemplazarFile(req.params.pid, productoNuevo)
+        res.json(productoReemplazado)
     } catch (error) {
         next(error)
     }
 })
+
 productsRouter.delete('/:pid', async (req, res, next) => {
     try {
-        const borrada = await personasManager.borrarCosaSegunId(req.params.pid)
+        const borrada = await productsManager.borrarSegunId(req.params.pid)
         res.json(borrada)
-        // res.sendStatus(204)
     } catch (error) {
         next(error)
     }

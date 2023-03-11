@@ -1,11 +1,28 @@
 export class Producto {
-    constructor({ id, nombre, rol }) {
-        if (!id) throw new Error('falta un argumento')
-        if (!nombre) throw new Error('falta un argumento')
-        if (!rol) throw new Error('falta un argumento')
-
+    constructor({ title, description, code, price, id, status, stock, category, thumbnails }) {
+        if (!id && typeof id !== 'string') throw new Error("falta el id") 
         this.id = id
-        this.nombre = nombre
-        this.rol = rol
+        
+        if (!title && typeof title !== 'string') throw new Error("falta el titulo")
+        this.title = title
+
+        // if (!description) throw new Error("falta la descripción")
+        // this.description = description
+
+        // if (!code) throw new Error("falta el code")
+        // this.code = code
+
+        if (!price && !isNan(price)) throw new Error("falta el precio")
+        this.price = price
+
+        this.status = true
+
+        // if (!stock) throw new Error("falta el stock")
+        // this.stock = stock
+
+        // if (!category) throw new Error("falta la categoria")
+        // this.category = category
+
+        this.thumbnails = []
     }
 }

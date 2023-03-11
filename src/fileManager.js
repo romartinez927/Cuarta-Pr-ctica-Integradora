@@ -1,71 +1,69 @@
 import fs from 'fs/promises'
 
 export class FileManager {
-    #cosas
-    #ruta
+    #file
+    #path
 
-    constructor(ruta) {
-        this.#ruta = ruta
-        this.#cosas = []
+    constructor(path) {
+        this.#path = path
+        this.#file = []
     }
 
     async #leer() {
-        const json = await fs.readFile(this.#ruta, 'utf-8')
-        this.#cosas = JSON.parse(json)
+        const json = await fs.readFile(this.#path, 'utf-8')
+        this.#file = JSON.parse(json)
     }
 
     async #escribir() {
-        const nuevoJson = JSON.stringify(this.#cosas, null, 2)
-        await fs.writeFile(this.#ruta, nuevoJson)
+        const nuevoJson = JSON.stringify(this.#file, null, 2)
+        await fs.writeFile(this.#path, nuevoJson)
     }
 
-    async guardarCosa(cosa) {
+    async guardar(file) {
         await this.#leer()
-        this.#cosas.push(cosa)
+        this.#file.push(file)
         await this.#escribir()
-        return cosa
+        return file
     }
 
-    async buscarCosas() {
+    async buscar() {
         await this.#leer()
-        return this.#cosas
+        return this.#file
     }
 
-    async buscarCosaSegunId(id) {
+    async buscarSegunId(id) {
         await this.#leer()
-        const buscada = this.#cosas.find(c => c.id === id)
+        const buscada = this.#file.find(c => c.id === id)
         if (!buscada) {
             throw new Error('id no encontrado')
         }
         return buscada
     }
 
-    async reemplazarCosa(id, nuevaCosa) {
+    async reemplazarFile(id, newFile) {
         await this.#leer()
-        const indiceBuscado = this.#cosas.findIndex(c => c.id === id)
+        const indiceBuscado = this.#file.findIndex(c => c.id === id)
         if (indiceBuscado === -1) {
             throw new Error('id no encontrado')
         }
-        this.#cosas[indiceBuscado] = nuevaCosa
+        this.#file[indiceBuscado] = newFile
         await this.#escribir()
-        return nuevaCosa
+        return newFile
     }
 
-    async borrarCosaSegunId(id) {
+    async borrarSegunId(id) {
         await this.#leer()
-        const indiceBuscado = this.#cosas.findIndex(c => c.id === id)
+        const indiceBuscado = this.#file.findIndex(c => c.id === id)
         if (indiceBuscado === -1) {
             throw new Error('id no encontrado')
         }
-        const [borrado] = this.#cosas.splice(indiceBuscado, 1)
+        const [borrado] = this.#file.splice(indiceBuscado, 1)
         await this.#escribir()
         return borrado
     }
 
-
-
     async reset() {
-        this.#cosas = []
+        this.#file = []
         await this.#escribir()
     }
 }

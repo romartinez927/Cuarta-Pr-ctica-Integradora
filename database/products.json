@@ -3,5 +3,54 @@
     "id": "1b87737e-b3d9-45fe-a076-10d0b9338222",
     "nombre": "anita",
     "rol": "profe master"
+  },
+  {
+    "id": "ede1d916-a469-4962-9d7a-3a8946ec3a21",
+    "nombre": "tom",
+    "rol": "god"
+  },
+  {
+    "title": "remera",
+    "price": "1000",
+    "status": true
+  },
+  {
+    "id": "0c647a66-4abb-402b-9171-afa777e87b2a",
+    "title": "remera 2",
+    "price": "1500",
+    "status": true
+  },
+  {
+    "id": 12,
+    "title": "remera 3",
+    "price": "1500",
+    "status": true
+  },
+  {
+    "id": "27f53dbd-cc41-442b-b071-efa567630ae1",
+    "title": "remera 4",
+    "price": "2500",
+    "status": true
+  },
+  {
+    "id": "8eb4f8a4-a89a-40f6-b07e-d8a601cff750",
+    "title": 1,
+    "price": 123,
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": "8b199837-43ca-4099-adae-fc70ab5c396a",
+    "title": 3,
+    "price": 100,
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": "320a4bab-b392-497a-ad83-7f1c8418a602",
+    "title": 2,
+    "price": 23,
+    "status": true,
+    "thumbnails": []
   }
 ]
