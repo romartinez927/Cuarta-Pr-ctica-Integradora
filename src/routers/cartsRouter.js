@@ -20,7 +20,6 @@ cartsRouter.get('/', async (req, res, next) => {
 cartsRouter.get('/:cid', async (req, res, next) => {
     try {
         const carrito = await cartsManager.buscarSegunId(req.params.cid)
-        console.log(...carrito.products, carrito.products[0])
         res.json(carrito)
     } catch (error) {
         next(error)
@@ -53,6 +52,5 @@ cartsRouter.post('/:cid/product/:pid', async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-
 })
 
