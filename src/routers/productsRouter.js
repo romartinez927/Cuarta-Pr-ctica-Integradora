@@ -50,8 +50,7 @@ productsRouter.put('/:pid', async (req, res, next) => {
             ...req.body
         })
     } catch (error) {
-        next(error)
-        return
+        return next(error)  
     }
 
     try {

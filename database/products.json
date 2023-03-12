@@ -1,33 +1,28 @@
 [
   {
-    "title": "remera",
-    "price": "1000",
-    "status": true
-  },
-  {
-    "id": "0c647a66-4abb-402b-9171-afa777e87b2a",
-    "title": "remera",
-    "price": "1500",
-    "status": true
-  },
-  {
-    "id": 12,
-    "title": "remera 3",
-    "price": "1500",
-    "status": true
-  },
-  {
-    "id": "27f53dbd-cc41-442b-b071-efa567630ae1",
-    "title": "remera 4",
-    "price": "2500",
-    "status": true
-  },
-  {
-    "id": "8eb4f8a4-a89a-40f6-b07e-d8a601cff750",
-    "title": 1,
-    "price": 123,
+    "id": "9d6b0733-8ca5-471e-86fe-32c239da01b3",
+    "title": "Remera 2",
+    "description": "Lorem ipsum",
+    "code": "code",
+    "price": 2000,
     "status": true,
-    "thumbnails": []
+    "stock": 20,
+    "category": "indumentaria",
+    "thumbnails": [
+      "img2"
+    ]
+  },
+  {
+    "id": "58fc3b56-5333-4b2b-8885-801b76a61f21",
+    "title": "Remera actualizada",
+    "description": "Lorem ipsum",
+    "code": "code",
+    "price": 2000,
+    "status": true,
+    "stock": 20,
+    "category": "indumentaria",
+    "thumbnails": [
+      "img2"
+    ]
   }
-
 ]
