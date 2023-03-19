@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { Cart } from "../Cart.js"
-import { FileManager } from "../fileManager.js"
+import { FileManager } from "../FileManager.js"
 import { randomUUID } from "crypto"
 
 export const cartsRouter = Router()

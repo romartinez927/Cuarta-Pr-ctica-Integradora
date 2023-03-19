@@ -1,7 +1,8 @@
 import { Router } from "express"
-import { FileManager } from "../fileManager.js"
+import { FileManager } from "../FileManager.js"
 import { Producto } from "../Producto.js"
 import { randomUUID } from "crypto"
+import handlebars from "express-handlebars"
 
 export const productsRouter = Router()
 
