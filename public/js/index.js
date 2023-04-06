@@ -1,43 +1,52 @@
-// @ts-ignore
-const serverSocket = io('http://localhost:8080/')
+const serverSocket = io(`http://localhost:8080/`)
 
-const btnEnviar = document.querySelector('#btnEnviar')
+const formChat = document.querySelector("#formChat")
 
-if (btnEnviar) {
-    btnEnviar.addEventListener('click', evento => {
-        const inputTitle = document.querySelector('#inputTitle')
-        const inputPrice = document.querySelector('#inputPrice')
+if (formChat instanceof HTMLFormElement) {
+    formChat.addEventListener("submit", event => {
+        event.preventDefault()
+        const formData = new FormData(formChat)
+        const data = {}
+        formData.forEach((value, key) => (data[key] = value))
 
-        if (!(inputTitle instanceof HTMLInputElement) || !(inputPrice instanceof HTMLInputElement)) return
-
-        const title = inputTitle.value
-        const price = inputPrice.value
-
-        if (!title || !price) return
-
-        serverSocket.emit('nuevoProducto', { title, price })
+        fetch("/api/chat", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     })
 }
 
-const plantillaProductos = `
-{{#if hayProductos }}
-<ul>
-    {{#each productos}}
-    <li> 
-        <h3>{{this.title}}</h3>
-        <p>Precio: $ {{this.price}}</p>
-    </li>
-    {{/each}}
-</ul>
+const realTimeProductsContainer = document.getElementById("realTimeProductsContainer") 
+
+const template = `
+{{#if showList}}
+      <ul>
+      {{#each list}}
+            <li>
+                <h3>Title: {{this.title}}</h3>
+                <p>Price: $ {{this.price}}</p>
+                <p>Description: {{this.description}}</p>
+                <p>Code: {{this.code}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <p>Category: {{this.category}}</p>
+            </li>
+      {{/each}}
+      </ul>
 {{else}}
-<p>no hay productos...</p>
+  <p>No hay productos...</p>
 {{/if}}
 `
-const armarHtmlProductos = Handlebars.compile(plantillaProductos)
 
-serverSocket.on('actualizarProductos', productos => {
-    const divProductos = document.querySelector('#productos')
-    if (divProductos) {
-        divProductos.innerHTML = armarHtmlProductos({ productos, hayProductos: productos.length > 0 })
+const compileTemplate = Handlebars.compile(template)
+
+serverSocket.on("updateList", data =>{
+    if (realTimeProductsContainer !== null) {
+        realTimeProductsContainer.innerHTML = compileTemplate({
+            list: data.list,
+            showList: data.showList
+        })
     }
 })

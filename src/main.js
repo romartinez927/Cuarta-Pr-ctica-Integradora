@@ -1,9 +1,14 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
-import { Server as SocketIOServer } from 'socket.io'
-import { FileManager } from './FileManager.js'
+import { Server } from 'socket.io'
+import { apiRouter } from './routers/apiRouter.js'
+import { PORT } from '../config/server.config.js'
+import { chatRouter } from './routers/chatRouter.js'
+import { conectar } from '../database/mongoose.js'
+import { viewsRouter } from './routers/viewsRouter.js'
+import { handleMessageSocket, socketHandle } from './middleware/socket.js'
 
-const productsManager = new FileManager('./database/productos.json')
+await conectar()
 
 const app = express()
 
@@ -13,34 +18,18 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('./public'))
 
-const httpServer = app.listen(8080)
+const server = app.listen(PORT)
+console.log(`escuchando en PORT ${PORT}`)
 
-const io = new SocketIOServer(httpServer)
+export const io = new Server(server)
 
-io.on('connection', async clientSocket => {
-    console.log("cliente conectado")
-    clientSocket.on('nuevoProducto', async producto => {
-        await productsManager.guardar(producto)
-        const data = await productsManager.buscar()
-        const productos = data.map(m => ({ ...m }))
-        io.sockets.emit('actualizarProductos', productos)
-    })
+app.use("/api", apiRouter)
+app.use("/chat", chatRouter)
+app.use("/", viewsRouter)
 
-    const data = await productsManager.buscar()
-    const productos = data.map(m => ({ ...m }))
-    io.sockets.emit('actualizarProductos', productos)
-})
+io.on("connection", async clientSocket => {
+    console.log("nuevo cliente conectado")
+    await socketHandle()
+    await handleMessageSocket()
+  })
 
-app.get('/realtimeproducts', async (req, res) => {
-    res.render('realtimeproducts', {
-        title: 'Real Time Products'
-    })
-})
-
-app.get('/', async (req, res) => {
-    const productos = await productsManager.buscar()
-    res.render('index', {
-        productos: productos,
-        title: 'Productos'
-    })
-})
