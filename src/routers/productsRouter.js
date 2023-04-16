@@ -5,20 +5,42 @@ import mongoose from "mongoose"
 
 export const productsRouter = Router()
 
+// Methods
 productsRouter.get('/', async (req, res, next) => {
+    const { limit, page, category, status, sort } = req.query
+    
     try {
-        let limit = req.query.limit
-        const productsDb = mongoose.connection.db.collection('products')
-        const products = await productsDb.find().toArray()
-        if(!limit) return res.json(products)
+        let product = await productosManager.read(page, limit, category, status, sort)
 
-        products.splice(limit, products.length)
-        res.json(products)
+        const productExist = () => {
+            if(Boolean(product.docs)) return "success"
+            else return "error"
+        }
+        res.send({
+            status: productExist(),
+            payload: product.docs,
+            totalDocs: product.totalDocs,
+            limit: product.limit,
+            totalPages: product.totalPages,
+            page: product.page,
+            pagingCounter: product.pagingCounter,
+            hasPrevPage: product.hasPrevPage,
+            hasNextPage: product.hasNextPage,
+            prevLink: product.prevPage,
+            nextLink: product.nextPage
+        })
+        // const productsDb = mongoose.connection.db.collection('products')
+        // const products = await productsDb.find().toArray()
+        // if(!limit) return res.json(products)
+
+        // products.splice(limit, products.length)
+        // res.json(products)
     } catch (error) {
         next(error)
     }
 })
 
+// obtener producto segun su id
 productsRouter.get('/:pid', async (req, res, next) => {
     try {
         const producto = await productosManager.obtenerSegunId(req.params.pid)
@@ -28,6 +50,7 @@ productsRouter.get('/:pid', async (req, res, next) => {
     }
 })
 
+// crear nuevo producto
 productsRouter.post('/', async (req, res, next) => {
     try {
         const producto = new Producto(req.body)
@@ -38,6 +61,7 @@ productsRouter.post('/', async (req, res, next) => {
     }
 })
 
+// actualizar el producto según su id
 productsRouter.put('/:pid', async (req, res, next) => {
     try {
         const producto = new Producto(req.body)
@@ -49,6 +73,7 @@ productsRouter.put('/:pid', async (req, res, next) => {
     }
 })
 
+// eliminar producto según su id
 productsRouter.delete('/:pid', async (req, res, next) => {
     try {
         const borrada = await productosManager.borrarSegunId(req.params.pid)

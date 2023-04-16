@@ -19,7 +19,7 @@ class CartsManager {
     }
 
     async obtenerSegunId(id) {
-        const carrito = await this.#cartsDb.findById(id).lean()
+        const carrito = await this.#cartsDb.findById(id).lean().populate('products.product')
         return carrito
     }
 
@@ -41,6 +41,31 @@ class CartsManager {
 
         await this.updateCart(cartId, cart)
         return cart            
+    }
+
+    async deleteProductFromCart(productId, cartId) {
+        try {
+			const newCart = await cartModel.updateOne({ _id: cartId }, { $pull: { products: { _id: productId } } })
+			return newCart
+		} catch (error) {
+			throw new Error(error)
+		}
+    }
+
+    async deleteAllProducts(cartId) {
+        try {
+			await cartModel.updateOne({ _id: cartId }, { $set: { products: [] } })
+		} catch (error) {
+			throw new Error(error)
+		}
+    }
+
+    async updateProduct(cartId, productId, quantity) {
+		try {
+			await cartModel.updateOne({ _id: cartId, 'products.product': productId }, { $set: { 'products.$.quantity': quantity } })
+		} catch (error) {
+			throw new Error(error)
+		}
     }
 }
 

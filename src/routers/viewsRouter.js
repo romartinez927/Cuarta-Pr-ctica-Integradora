@@ -9,10 +9,18 @@ viewsRouter.use(express.urlencoded({ extended: true }))
 viewsRouter.get('/', async (req, res) => {
     const productosDb = mongoose.connection.db.collection('products')
     const productos = await productosDb.find().toArray()
-    res.render('index', {
+    res.render('home', {
         productos: productos,
         title: 'Productos'
     })
+})
+
+viewsRouter.get('/products', async (req, res) => {
+    res.render('products')
+})
+
+viewsRouter.get('/carts/:cid', async (req, res) => {
+    res.render('cart')
 })
 
 viewsRouter.get('/realtimeproducts', async (req, res) => {
