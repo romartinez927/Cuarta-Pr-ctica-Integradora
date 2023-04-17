@@ -2,6 +2,8 @@ const API_URL = `/api${window.location.pathname}`
 
 const productContainer = document.querySelector('#productContainer')
 
+// DOM
+// cart
 fetch(`${API_URL}`)
   .then(res => res.json())
   .then(data => {
