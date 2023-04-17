@@ -1,7 +1,6 @@
 import { Router } from "express"
 import { Producto } from "../entidades/Producto.js"
 import { productosManager } from "../dao/mongo/managers/productos.manager.js"
-import mongoose from "mongoose"
 
 export const productsRouter = Router()
 
@@ -29,12 +28,6 @@ productsRouter.get('/', async (req, res, next) => {
             prevLink: product.prevPage,
             nextLink: product.nextPage
         })
-        // const productsDb = mongoose.connection.db.collection('products')
-        // const products = await productsDb.find().toArray()
-        // if(!limit) return res.json(products)
-
-        // products.splice(limit, products.length)
-        // res.json(products)
     } catch (error) {
         next(error)
     }
