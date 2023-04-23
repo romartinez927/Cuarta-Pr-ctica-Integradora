@@ -1,4 +1,5 @@
 <h1>Messages</h1>
+
 <form id="formChat" method="post">
     <div>
         <label for="inputUser">User</label>
@@ -8,22 +9,18 @@
         <label for="inputMensaje">Message</label>
         <input id="inputMensaje" name="message" type="text" placeholder="Ingrese su mensaje...">
     </div>
-    <button type="submit">Enviar Mensaje</button>
+    <button type="submit" id='formButton'>Enviar Mensaje</button>
 </form>
 
-<div id="messages">
+<ul id='messagesContainer'>
     {{#if hayMensajes }}
-    <ul>
         {{#each mensajes}}
-        <li>
-            <h5>{{this.user}}: {{this.message}}</h5>
-        </li>
+            <li>{{this.user}}: {{this.message}}</li>
         {{/each}}
-    </ul>
     {{else}}
-    <p>no hay mensajes...</p>
+        <p>no hay mensajes...</p>
     {{/if}}
-</div>
+</ul>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+<script src="/js/chat.js"></script>

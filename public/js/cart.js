@@ -7,21 +7,18 @@ const productContainer = document.querySelector('#productContainer')
 fetch(`${API_URL}`)
   .then(res => res.json())
   .then(data => {
-    console.log('fetch data', data)
-    console.log('products', data?.products)
     productContainer.innerHTML = ''
 
     let products = ''
     data.products.forEach(({product, quantity}) => {
-      console.log(product)
-      products += `
+      products += `<br/>
         <div>
-            <h5>${product[0].title}</h5>
-            <p>${product[0].description}.</p>
-            <span>Price: $${product[0].price}</span> <br>
-            <span>Cantidad: ${quantity}</span> <br>
-            <span>Categoria: ${product[0].category}</span>
-        </div>
+            <h3>Title:${product[0].title}</h3>
+            <p>Description:${product[0].description}.</p>
+            <p>Price: $${product[0].price}</p> 
+            <p>Cantidad: ${quantity}</p> 
+            <p>Categoria: ${product[0].category}</p>
+        </div><br/>
         `
     });
     productContainer.innerHTML = products

@@ -6,7 +6,6 @@ import { PORT } from '../config/server.config.js'
 import { chatRouter } from './routers/chatRouter.js'
 import { conectar } from '../database/mongoose.js'
 import { viewsRouter } from './routers/viewsRouter.js'
-import { handleMessageSocket, socketHandle } from './middleware/socket.js'
 
 await conectar()
 
@@ -27,9 +26,5 @@ app.use("/api", apiRouter)
 app.use("/chat", chatRouter)
 app.use("/", viewsRouter)
 
-io.on("connection", async clientSocket => {
-    console.log("nuevo cliente conectado")
-    await socketHandle()
-    await handleMessageSocket()
-  })
+
 

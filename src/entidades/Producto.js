@@ -17,12 +17,12 @@ export class Producto {
         if (!code || typeof code !== 'string') throw new Error("falta el code")
         this.#code = code
 
-        if (!price || typeof price !== 'number') throw new Error("falta el precio")
+        if (!price) throw new Error("falta el precio")
         this.#price = price
 
         this.#status = true
 
-        if (!stock || typeof stock !== 'number') throw new Error("falta el stock")
+        if (!stock) throw new Error("falta el stock")
         this.#stock = stock
 
         if (!category || typeof category !== 'string') throw new Error("falta la categoria")
@@ -42,8 +42,8 @@ export class Producto {
             description: this.#description,
             title: this.#title,
             code: this.#code,
-            price: this.#price,
-            stock: this.#stock,
+            price: Number(this.#price),
+            stock: Number(this.#stock),
             category: this.#category
         }
     }

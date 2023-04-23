@@ -3,8 +3,12 @@ const search = `${window.location.search}`
 const API_SEARCH = search.slice(1)
 
 // DOM
+// form para agregar productos
+const formProductos = document.querySelector("#formProductos")
+
 // products
 const productContainer = document.querySelector('#productContainer')
+
 // pagination
 const prevPageButton = document.querySelector('#prevPage-button')
 const nextPageButton = document.querySelector('#nextPage-button')
@@ -36,11 +40,12 @@ const eventUploadFetch = (page) => {
             data.payload.forEach(item => {
                 product += `
             <div>
-                <h3>${item.title}</h5>
-                <p>${item.description}.</p>
-                <span>Price: $${item.price}</span> <br>
+                <h3>Title: ${item.title}</h5>
+                <p>Description: ${item.description}.</p>
+                <p>Price: $${item.price}</p>
+                <p>Category: ${item.category}.</p>
                 <button>Agregar al carrito</button>
-            </div>
+            </div><br/><br/>
             `
             });
             productContainer.innerHTML = product
@@ -63,7 +68,6 @@ const eventUploadFetch = (page) => {
                     removePaginationHandlers({ nextPageClickHandler, prevPageClickHandler, inputPageChangeHandler, inputPageInputHandler })
                     eventUploadFetch(page)
                 }
-
             }
 
             const inputPageChangeHandler = () => {
@@ -83,7 +87,6 @@ const eventUploadFetch = (page) => {
 
             const inputPageInputHandler = () => {
                 debugger
-                console.log('event input')
                 if (page > data.totalPages) {
                     page = inputPage.max
                 } else if (page < 1) {
@@ -91,7 +94,6 @@ const eventUploadFetch = (page) => {
                 } else {
                     page = inputPage.value
                 }
-
 
                 removePaginationHandlers({ nextPageClickHandler, prevPageClickHandler, inputPageChangeHandler, inputPageInputHandler })
                 eventUploadFetch(page)
@@ -111,3 +113,49 @@ const eventUploadFetch = (page) => {
 }
 
 eventUploadFetch(1)
+
+// agregar productos
+
+
+if (formProductos instanceof HTMLFormElement) {
+    formProductos.addEventListener("submit", event => {
+        event.preventDefault()
+
+        const inputPrice = document.querySelector('#inputPrice')
+        const inputDescription = document.querySelector('#inputDescription')
+        const inputCode = document.querySelector('#inputCode')
+        const inputCategory = document.querySelector('#inputCategory')
+        const inputStock = document.querySelector('#inputStock')
+        const inputTitle = document.querySelector('#inputTitle')
+        const inputThumbnail = document.querySelector('#inputThumbnail')
+    
+        if (
+          inputPrice instanceof HTMLInputElement &&
+          inputDescription instanceof HTMLInputElement &&
+          inputCode instanceof HTMLInputElement &&
+          inputCategory instanceof HTMLInputElement &&
+          inputStock instanceof HTMLInputElement &&
+          inputTitle instanceof HTMLInputElement &&
+          inputThumbnail instanceof HTMLInputElement 
+        ) {
+            const data = {
+                price: inputPrice.value,
+                title: inputTitle.value,
+                description: inputDescription.value,
+                code: inputCode.value,
+                stock: inputStock.value,
+                category: inputCategory.value,
+                thumbnails: inputThumbnail.value
+            }
+
+            fetch("/api/products", {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+        }
+    })
+}
