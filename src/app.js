@@ -12,7 +12,6 @@ import cookieParser from 'cookie-parser'
 import { loginRouter } from './routers/login.routes.js'
 import { registerRouter } from './routers/signup.routes.js'
 import { profileRouter } from './routers/profile.routes.js'
-import { sessionsRouter } from './routers/sessions.routes.js'
 import MongoStore from "connect-mongo"
 import { URL } from '../config/database.config.js'
 
@@ -30,12 +29,12 @@ app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
         mongoUrl: URL,
-        mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-        ttl: 420,
+        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        ttl: 10000
     }),
-    secret: "secreto",
+    secret: 'codigo-s3cr3t0',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: true
 }))
 
 const server = app.listen(PORT)
@@ -48,5 +47,4 @@ app.use("/chat", chatRouter)
 app.use("/login", loginRouter)
 app.use("/register", registerRouter)
 app.use("/profile", profileRouter)
-app.use("/sessions", sessionsRouter)
 app.use("/", viewsRouter)

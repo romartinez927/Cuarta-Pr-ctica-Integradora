@@ -1,35 +1,12 @@
 <h1>Register</h1>
 
-<div>
-  <form id="myForm" method="GET" class="speaker-form">
-    <div class="form-row">
-      <label for="full-name">Nombre</label>
-      <input id="first_name" name="first_name" type="text" />
-    </div>
-    <div class="form-row">
-      <label for="email">Correo electronico</label>
-      <input id="email" name="email" type="email" />
-      <div class="form-row">
-        <label for="full-user">Lastname</label>
-        <input id="last_name" name="last_name" type="text" />
-      </div>
-      <div class="form-row">
-        <label for="full-user">Age</label>
-        <input id="age" name="age" type="text" />
-      </div>
-      <div class="form-row">
-        <label for="full-user">Password</label>
-        <input id="password" name="password" type="password" />
-      </div>
-    </div>
+<div class="containerForm">
+      <input type="text" placeholder="Name" name="firstName" id="firstName" />
+      <input type="text" placeholder="Last Name" name="lastName" id="lastName" />
+      <input type="number" placeholder="Age" name="age" id="age" />
+      <input type="email" placeholder="email" name="email" id="email" />
+      <input type="password" placeholder="Password" name="password" id="password" />
+      <button id="signup">Enviar</button>
+  </div>
 
-    <div class="form-row">
-      <button id="signup" type="button" class="signup">
-        Crear usuario
-      </button>
-    </div>
-  </form>
-
-</div>
-
-<script src="/js/register.js"></script>
+<script src="/js/login.js"></script>

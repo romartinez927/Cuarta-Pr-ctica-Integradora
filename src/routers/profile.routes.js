@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { userModel } from "../dao/mongo/models/users.model.js";
 import { requireAuth } from "../middlewares.js";
+import usersModel from "../dao/mongo/models/users.model.js";
 
 export const profileRouter = Router();
 
@@ -8,7 +8,7 @@ profileRouter.get('/', requireAuth, async (req, res) => {
     const userId = req.session.user?._id;
     try {
         if (userId) {
-            const user = await userModel.findById(userId)
+            const user = await usersModel.findById(userId)
                 .select('first_name last_name age').lean()
             res.render('profile', { title: 'Profile', stylesheet: 'profile', user: user })
         } else {
