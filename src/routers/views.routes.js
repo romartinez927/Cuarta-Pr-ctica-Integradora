@@ -14,6 +14,14 @@ viewsRouter.get('/carts/:cid', async (req, res) => {
     res.render('cart')
 })
 
+viewsRouter.get("/login", async (req, res) => {
+    res.render("login")
+})
+
+viewsRouter.get("/register", async (req, res) => {
+    res.render("register")
+})
+
 viewsRouter.get('/chat', async (req, res) => {
     try {
         const mensajesDb = mongoose.connection.db.collection('messages')
