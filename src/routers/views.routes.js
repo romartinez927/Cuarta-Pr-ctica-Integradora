@@ -7,19 +7,23 @@ viewsRouter.use(express.json())
 viewsRouter.use(express.urlencoded({ extended: true }))
 
 viewsRouter.get('/products', async (req, res) => {
-    res.render('products')
+    res.render('products', {title: "Productos"})
 })
 
 viewsRouter.get('/carts/:cid', async (req, res) => {
-    res.render('cart')
+    res.render('cart', {title: "Carrito"})
+})
+
+viewsRouter.get("/", async (req, res) => {
+    res.redirect("/login")
 })
 
 viewsRouter.get("/login", async (req, res) => {
-    res.render("login")
+    res.render("login", {title: "Login"})
 })
 
 viewsRouter.get("/register", async (req, res) => {
-    res.render("register")
+    res.render("register", {title: "Registro"})
 })
 
 viewsRouter.get('/chat', async (req, res) => {
