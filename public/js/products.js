@@ -128,15 +128,15 @@ if (formProductos instanceof HTMLFormElement) {
         const inputStock = document.querySelector('#inputStock')
         const inputTitle = document.querySelector('#inputTitle')
         const inputThumbnail = document.querySelector('#inputThumbnail')
-    
+
         if (
-          inputPrice instanceof HTMLInputElement &&
-          inputDescription instanceof HTMLInputElement &&
-          inputCode instanceof HTMLInputElement &&
-          inputCategory instanceof HTMLInputElement &&
-          inputStock instanceof HTMLInputElement &&
-          inputTitle instanceof HTMLInputElement &&
-          inputThumbnail instanceof HTMLInputElement 
+            inputPrice instanceof HTMLInputElement &&
+            inputDescription instanceof HTMLInputElement &&
+            inputCode instanceof HTMLInputElement &&
+            inputCategory instanceof HTMLInputElement &&
+            inputStock instanceof HTMLInputElement &&
+            inputTitle instanceof HTMLInputElement &&
+            inputThumbnail instanceof HTMLInputElement
         ) {
             const data = {
                 price: inputPrice.value,
@@ -151,11 +151,32 @@ if (formProductos instanceof HTMLFormElement) {
             fetch("/api/products", {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
             })
         }
+    })
+}
+
+
+// logout
+const formLogout = document.querySelector("#formLogout")
+
+if (formLogout instanceof HTMLFormElement) {
+    formLogout.addEventListener('submit', async event => {
+        event.preventDefault()
+
+        const { status } = await fetch('/api/sesiones', {
+            method: 'DELETE'
+        })
+
+        if (status === 200) {
+            window.location.href = '/login'
+        } else {
+            console.log('[logout] estado inesperado: ' + status)
+        }
+
     })
 }

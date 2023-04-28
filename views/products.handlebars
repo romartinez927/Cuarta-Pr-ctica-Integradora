@@ -1,4 +1,11 @@
-<h1>Agregar Productos</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; padding-right: 2em">
+    <h1>Bienvenido/a {{user}}. (Rol: {{rol}})</h1>
+    <form id="formLogout">
+        <button type="submit" style="height: max-content; padding: 10px 20px">Logout</button>
+    </form>
+</div>
+
+<h2>Agregar Productos</h2>
 <form method="post" id="formProductos">
     <ul>
         <li>
@@ -33,7 +40,7 @@
     <button type="submit" id="btnAgregarProducto">Agregar producto</button>
 </form>
 
-<h1>Lista de Productos</h1>
+<h2>Lista de Productos</h2>
 <div id="productContainer"></div>
 
 <div class="controller-pagination">

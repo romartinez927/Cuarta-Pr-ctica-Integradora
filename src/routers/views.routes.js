@@ -1,18 +1,11 @@
 import express, { Router } from "express"
 import mongoose from "mongoose"
+import { auth } from "../middlewares/autentication.js"
 
 export const viewsRouter = Router()
 
 viewsRouter.use(express.json())
 viewsRouter.use(express.urlencoded({ extended: true }))
-
-viewsRouter.get('/products', async (req, res) => {
-    res.render('products', {title: "Productos"})
-})
-
-viewsRouter.get('/carts/:cid', async (req, res) => {
-    res.render('cart', {title: "Carrito"})
-})
 
 viewsRouter.get("/", async (req, res) => {
     res.redirect("/login")
@@ -26,7 +19,16 @@ viewsRouter.get("/register", async (req, res) => {
     res.render("register", {title: "Registro"})
 })
 
-viewsRouter.get('/chat', async (req, res) => {
+viewsRouter.get('/products', auth, async (req, res) => {
+    const dataSession = req.session["user"]
+    res.render('products', {title: "Productos", user: dataSession.name, rol: dataSession.rol})
+})
+
+viewsRouter.get('/carts/:cid', auth, async (req, res) => {
+    res.render('cart', {title: "Carrito"})
+})
+
+viewsRouter.get('/chat', auth, async (req, res) => {
     try {
         const mensajesDb = mongoose.connection.db.collection('messages')
         const mensajes = await mensajesDb.find().toArray()
