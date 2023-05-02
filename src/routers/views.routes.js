@@ -1,6 +1,7 @@
 import express, { Router } from "express"
 import mongoose from "mongoose"
-import { auth } from "../middlewares/autentication.js"
+import { auth, soloLogueadosView } from "../middlewares/autentication.js"
+import { usersModel } from "../dao/mongo/models/users.model.js"
 
 export const viewsRouter = Router()
 
@@ -19,16 +20,16 @@ viewsRouter.get("/register", async (req, res) => {
     res.render("register", {title: "Registro"})
 })
 
-viewsRouter.get('/products', auth, async (req, res) => {
-    const dataSession = req.session["user"]
-    res.render('products', {title: "Productos", user: dataSession.name, rol: dataSession.rol})
+viewsRouter.get('/products', auth, soloLogueadosView, async (req, res) => {
+    const userName = req.user.name
+    res.render('products', {title: "Productos", user: userName || "usuario"})
 })
 
-viewsRouter.get('/carts/:cid', auth, async (req, res) => {
+viewsRouter.get('/carts/:cid', auth, soloLogueadosView, async (req, res) => {
     res.render('cart', {title: "Carrito"})
 })
 
-viewsRouter.get('/chat', auth, async (req, res) => {
+viewsRouter.get('/chat', auth, soloLogueadosView, async (req, res) => {
     try {
         const mensajesDb = mongoose.connection.db.collection('messages')
         const mensajes = await mensajesDb.find().toArray()

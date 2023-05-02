@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import express from 'express'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
@@ -10,6 +13,7 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import MongoStore from "connect-mongo"
 import { URL } from '../config/database.config.js'
+import { passportInitialize, passportSession } from './middlewares/passport.js'
 
 await conectar()
 
@@ -24,7 +28,8 @@ app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
         mongoUrl: URL,
-        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true}
+        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        ttl: 100
     }),
     secret: 'secreto',
     resave: false,
@@ -36,9 +41,14 @@ console.log(`escuchando en PORT ${PORT}`)
 
 export const io = new Server(server)
 
+app.use(passportInitialize, passportSession)
+
 app.use("/api", apiRouter)
 app.use("/chat", chatRouter)
 app.use("/", viewsRouter)
+
+
+
 
 
 

@@ -2,8 +2,10 @@ import express, { Router } from "express"
 import { productsRouter } from "./products.routes.js"
 import { cartsRouter } from "./carts.routes.js"
 import { chatRouter } from "./chat.routes.js"
-import { deleteSesiones, postSesiones } from "../controllers/sesiones.controler.js"
+import { deleteSesiones, getCurrentSessionController, postSesiones } from "../controllers/sesiones.controler.js"
 import { postUsuarios } from "../controllers/usuarios.controller.js"
+import { antenticacionPorGithub_CB, autenticacionPorGithub, autenticacionUserPass } from "../middlewares/passport.js"
+import { soloLogueadosApi } from "../middlewares/autentication.js"
 
 export const apiRouter = Router()
 
@@ -14,9 +16,15 @@ apiRouter.use("/products", productsRouter)
 apiRouter.use("/carts", cartsRouter)
 apiRouter.use("/chat", chatRouter)
 
+apiRouter.get('/sesiones/github', autenticacionPorGithub)
+apiRouter.get('/sesiones/githubCallback', antenticacionPorGithub_CB, (req, res, next) => { res.redirect('/') })
+
 apiRouter.post("/usuarios", postUsuarios)
-apiRouter.post("/sesiones", postSesiones)
-apiRouter.delete("/sesiones", deleteSesiones)
+apiRouter.post("/sesiones", autenticacionUserPass, postSesiones)
+
+apiRouter.get('/current', soloLogueadosApi, getCurrentSessionController)
+
+apiRouter.post("/logout", deleteSesiones)
 
 apiRouter.use((error, req, res, next) => {
     switch (error.message) {
