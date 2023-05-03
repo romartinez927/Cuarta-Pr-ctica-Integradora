@@ -1,7 +1,6 @@
 import express, { Router } from "express"
 import mongoose from "mongoose"
-import { auth, soloLogueadosView } from "../middlewares/autentication.js"
-import { usersModel } from "../dao/mongo/models/users.model.js"
+import { alreadyHasSession, auth, soloLogueadosView } from "../middlewares/autentication.js"
 
 export const viewsRouter = Router()
 
@@ -12,7 +11,7 @@ viewsRouter.get("/", async (req, res) => {
     res.redirect("/login")
 })
 
-viewsRouter.get("/login", async (req, res) => {
+viewsRouter.get("/login", alreadyHasSession, async (req, res) => {
     res.render("login", {title: "Login"})
 })
 

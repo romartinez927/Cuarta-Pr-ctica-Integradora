@@ -9,6 +9,5 @@ export function deleteSesiones(req, res, next) {
 }
 
 export function getCurrentSessionController(req, res, next) {
-    // passport guarda la sesion directamente en ** req.user ** en lugar del campo session de la peticion !
     res.json(req.user)
 }
