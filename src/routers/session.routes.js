@@ -9,6 +9,10 @@ export const sessionRouter = Router()
 sessionRouter.post("/usuarios", alreadyHasSession, postUsuarios)
 sessionRouter.post("/sesiones", autenticacionUserPass, postSesiones)
 
+sessionRouter.get("/current", (req, res, next) =>{
+
+})
+
 sessionRouter.post("/logout", deleteSesiones)
 
 sessionRouter.get('/sesiones/github', autenticacionPorGithub)

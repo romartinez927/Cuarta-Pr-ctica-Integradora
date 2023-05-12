@@ -2,15 +2,20 @@ import { encriptar } from "../crypto.js";
 import { usersModel } from "../dao/mongo/models/users.model.js";
 
 export async function postUsuarios(req, res) {
-    const {email, password, name} = req.body
+    const {email, password, first_name, last_name, age} = req.body
     const data = {
         email,
-        name,
+        age,
+        first_name,
+        last_name,
         password: encriptar(password)
     }
     const usuarioCreado = await usersModel.create(data)
     req.session.user = {
-        name: usuarioCreado.name,
+        first_name: usuarioCreado.first_name,
+        last_name: usuarioCreado.last_name,
+        role: "user",
+        age: usuarioCreado.age,
         email: usuarioCreado.email,
     }
 

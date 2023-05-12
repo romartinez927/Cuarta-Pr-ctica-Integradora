@@ -27,7 +27,8 @@ passport.use('github', new GithubStrategy({
     } catch (error) {
         const newUser = {
             email: profile.username,
-            name: profile.username,
+            first_name: profile.username,
+            last_name: profile.username,
             password: ""
         }
         user = await usersModel.create(newUser)

@@ -20,7 +20,7 @@ viewsRouter.get("/register", async (req, res) => {
 })
 
 viewsRouter.get('/products', auth, soloLogueadosView, async (req, res) => {
-    const userName = req.user.name
+    const userName = req.user.first_name
     res.render('products', {title: "Productos", user: userName || "usuario"})
 })
 
