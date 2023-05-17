@@ -1,4 +1,4 @@
-import { encriptar } from "../crypto.js";
+import { encriptar } from "../utils/crypto.js";
 import { usersModel } from "../dao/mongo/models/users.model.js";
 
 export async function postUsuarios(req, res) {

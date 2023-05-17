@@ -1,6 +1,6 @@
 import passport from "passport"
 import { Strategy } from "passport-local"
-import { validarPassword } from "../crypto.js"
+import { validarPassword } from "../utils/crypto.js"
 import { usersModel } from "../dao/mongo/models/users.model.js"
 import {Strategy as GithubStrategy} from "passport-github2"
 import { clientID, clientSecret, githubCallbackUrl } from "../../config/login.config.js"

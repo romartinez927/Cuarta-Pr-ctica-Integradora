@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt"
+import jwt from 'jsonwebtoken'
 
 export function encriptar(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
