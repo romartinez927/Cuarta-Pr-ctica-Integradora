@@ -1,3 +1,5 @@
-const URL = `mongodb+srv://rosariomartinez:contraseña123@codercluster.ubrbjuj.mongodb.net/eccomerce`
+import { user, pass } from "./config.js"
+
+const URL = `mongodb+srv://${user}:${pass}@codercluster.ubrbjuj.mongodb.net/eccomerce` 
 
 export { URL }

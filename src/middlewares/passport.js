@@ -3,7 +3,7 @@ import { Strategy } from "passport-local"
 import { validarPassword } from "../utils/crypto.js"
 import { usersModel } from "../dao/mongo/models/users.model.js"
 import {Strategy as GithubStrategy} from "passport-github2"
-import { clientID, clientSecret, githubCallbackUrl } from "../../config/login.config.js"
+import { clientID, clientSecret, githubCallbackUrl } from "../../config/config.js"
 
 passport.use('local', new Strategy({ usernameField: 'email' }, async (username, password, done) => {
     const usuarioEncontrado = await usersModel.findOne({ email: username }).lean()
