@@ -13,7 +13,9 @@ export async function handleGet(req, res, next) {
 
 export async function handleGetById(req, res, next) {
     try {
-        const carrito = await cartsManager.obtenerSegunId(req.params.cid)
+        const carrito = await cartsManager.obtenerSegunIdConPopulate(req.params.cid)
+        console.log("carrito")
+        console.log(carrito.products[0])
         res.json(carrito)
     } catch (error) {
         next(error)

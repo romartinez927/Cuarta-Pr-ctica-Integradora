@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
     status: { type: Boolean },
     stock: { type: Number, required: true },
     category: { type: String, required: true },
-    thumbnails: { type: Array },
+    thumbnails: { type: String },
 }, { versionKey: false })
 
 productSchema.plugin(mongooseAggregatePaginate)

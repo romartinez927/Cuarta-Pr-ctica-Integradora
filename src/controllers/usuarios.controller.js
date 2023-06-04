@@ -27,6 +27,7 @@ export async function postUsuarios(req, res) {
         email: usuarioCreado.email,
     }
 
+
     req.login(usuarioCreado, error => {
         if (error) {
             next(new Error('falló el login!'))

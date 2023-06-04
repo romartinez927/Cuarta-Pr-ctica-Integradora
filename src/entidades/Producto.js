@@ -6,8 +6,9 @@ export class Producto {
     #stock
     #category
     #status
+    #thumbnails
 
-    constructor({ title, description, code, price, stock, category }) {
+    constructor({ title, description, code, price, stock, category, thumbnails }) {
         if (!title || typeof title !== 'string') throw new Error("falta el titulo")
         this.#title = title
 
@@ -28,6 +29,8 @@ export class Producto {
         if (!category || typeof category !== 'string') throw new Error("falta la categoria")
         this.#category = category
 
+        if (typeof thumbnails !== 'string') throw new Error("el thumbnail debe ser un string")
+        this.#thumbnails = thumbnails
     }
 
     get description() { return this.#description }
@@ -36,6 +39,7 @@ export class Producto {
     get price() { return this.#price }
     get stock() { return this.#stock }
     get category() { return this.#category }
+    get thumbnails() { return this.#thumbnails }
 
     datos() {
         return {
@@ -44,7 +48,8 @@ export class Producto {
             code: this.#code,
             price: Number(this.#price),
             stock: Number(this.#stock),
-            category: this.#category
+            category: this.#category,
+            thumbnails: this.#thumbnails
         }
     }
 }

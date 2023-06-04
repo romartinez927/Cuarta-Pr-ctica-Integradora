@@ -1,6 +1,7 @@
 const API_URL = `/api${window.location.pathname}`
 const search = `${window.location.search}`
 const API_SEARCH = search.slice(1)
+const link = document.getElementById('linkToCart')
 
 // DOM
 // form para agregar productos
@@ -30,8 +31,10 @@ const removePaginationHandlers = ({ nextPageClickHandler, prevPageClickHandler, 
     inputPage.removeEventListener('input', inputPageInputHandler)
 }
 
+const cartID = link.dataset
+console.log(cartID)
 async function addProductCart(productId){
-    const FETCH_URL = `http://localhost:8080/api/carts/647b99ee3dfe6ce170aa431a/products/${productId}`
+    const FETCH_URL = `http://localhost:8080/api/carts/647c91b50f3c02d93f03fa58/products/${productId}`
     await fetch(FETCH_URL, { method: 'POST' })
     
 }
@@ -41,12 +44,12 @@ const eventUploadFetch = (page) => {
         .then(res => res.json())
         .then(data => {
             productContainer.innerHTML = ''
-
             let product = ''
             data.payload.forEach(item => {
                 product += `
             <div>
                 <h3>Title: ${item.title}</h5>
+                <img src=${item.thumbnails} style="height:200px"/>
                 <p>Description: ${item.description}.</p>
                 <p>Price: $${item.price}</p>
                 <p>Category: ${item.category}.</p>

@@ -1,10 +1,11 @@
 <div style="display: flex; justify-content: space-between; align-items: center; padding-right: 2em">
     <h1>Bienvenido/a {{user}}</h1>
+    <p>{{cartId}}</p>
     <form id="formLogout">
         <button type="submit" style="height: max-content; padding: 10px 20px">Logout</button>
     </form>
 </div>
-
+<a href={{urlToCart}} data-set={{cartId}} id="linkToCart" role="button">Go to my cart</a>
 <h2>Agregar Productos</h2>
 <form method="post" id="formProductos">
     <ul>

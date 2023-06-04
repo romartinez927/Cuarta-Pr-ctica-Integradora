@@ -19,7 +19,12 @@ class CartsManager {
     }
 
     async obtenerSegunId(id) {
-        const carrito = await this.#cartsDb.findById(id).lean().populate('products.product')
+        const carrito = await this.#cartsDb.findById(id).lean()
+        return carrito
+    }
+
+    async obtenerSegunIdConPopulate(id) {
+        const carrito = await this.#cartsDb.findById(id).lean().populate()
         return carrito
     }
 
@@ -29,19 +34,19 @@ class CartsManager {
     }
 
     async addProductToCart(productId, cartId) {
-        const cart = await this.obtenerSegunId(cartId)
+        const cart = await this.obtenerSegunIdConPopulate(cartId)
+        console.log(cart)
+        console.log("----")
         const product = cart.products.find((item) => item.product == productId)
-        console.log(productId)
-        console.log(cart.products)
+        console.log(product)
+        console.log("-")
         if (product) {
             product.quantity++
         } else {
             let product = { product: productId, quantity: 1 }
-            
             cart.products.push(product)
-            console.log(cart.products)
         }
-
+        console.log(cart)
         await this.updateCart(cartId, cart)
         return cart            
     }

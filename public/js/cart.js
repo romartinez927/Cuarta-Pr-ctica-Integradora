@@ -20,6 +20,7 @@ fetch(`${API_URL}`)
             <p>Categoria: ${product[0].category}</p>
         </div><br/>
         `
+        console.log(`${product[0]._id}`)
     });
     productContainer.innerHTML = products
 
