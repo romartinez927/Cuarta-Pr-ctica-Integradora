@@ -1,16 +1,16 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
-import { apiRouter } from './routers/api.routes.js'
-import { PORT } from '../config/server.config.js'
-import { chatRouter } from './routers/chat.routes.js'
-import { conectar } from '../database/mongoose.js'
-import { viewsRouter } from './routers/views.routes.js'
+import { apiRouter } from '../routers/api.routes.js'
+import { PORT } from '../../config/server.config.js'
+import { chatRouter } from '../routers/chat.routes.js'
+import { conectar } from '../../database/mongoose.js'
+import { viewsRouter } from '../routers/views.routes.js'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import MongoStore from "connect-mongo"
-import { URL } from '../config/database.config.js'
-import { passportInitialize, passportSession } from './middlewares/passport.js'
+import { URL } from '../../config/database.config.js'
+import { passportInitialize, passportSession } from '../middlewares/passport.js'
 
 await conectar()
 

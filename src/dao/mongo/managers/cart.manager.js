@@ -31,12 +31,15 @@ class CartsManager {
     async addProductToCart(productId, cartId) {
         const cart = await this.obtenerSegunId(cartId)
         const product = cart.products.find((item) => item.product == productId)
-
+        console.log(productId)
+        console.log(cart.products)
         if (product) {
             product.quantity++
         } else {
             let product = { product: productId, quantity: 1 }
+            
             cart.products.push(product)
+            console.log(cart.products)
         }
 
         await this.updateCart(cartId, cart)

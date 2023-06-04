@@ -3,7 +3,7 @@
   "name": "preentrega",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/app/app.js",
   "scripts": {
     "start": "node .",
     "test": "nodemon 'js, handlebars' ."

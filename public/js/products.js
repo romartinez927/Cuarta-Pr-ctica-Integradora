@@ -30,6 +30,12 @@ const removePaginationHandlers = ({ nextPageClickHandler, prevPageClickHandler, 
     inputPage.removeEventListener('input', inputPageInputHandler)
 }
 
+async function addProductCart(productId){
+    const FETCH_URL = `http://localhost:8080/api/carts/647b99ee3dfe6ce170aa431a/products/${productId}`
+    await fetch(FETCH_URL, { method: 'POST' })
+    
+}
+
 const eventUploadFetch = (page) => {
     fetch(`${API_URL}?page=${page}&${API_SEARCH}`)
         .then(res => res.json())
@@ -44,7 +50,7 @@ const eventUploadFetch = (page) => {
                 <p>Description: ${item.description}.</p>
                 <p>Price: $${item.price}</p>
                 <p>Category: ${item.category}.</p>
-                <button>Agregar al carrito</button>
+                <button onclick="addProductCart('${item._id}')">Agregar al carrito</button>
             </div><br/><br/>
             `
             });
@@ -115,7 +121,6 @@ const eventUploadFetch = (page) => {
 eventUploadFetch(1)
 
 // agregar productos
-
 
 if (formProductos instanceof HTMLFormElement) {
     formProductos.addEventListener("submit", event => {
