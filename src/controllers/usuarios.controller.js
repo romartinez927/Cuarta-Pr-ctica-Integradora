@@ -1,14 +1,15 @@
 import { encriptar } from "../utils/crypto.js";
 import { usersModel } from "../dao/mongo/models/users.model.js";
-import { cartsManager } from "../dao/mongo/managers/cart.manager.js";
+//import { cartsManager } from "../dao/mongo/managers/cart.manager.js";
 import { Cart } from "../entidades/Cart.js";
+import { cartsRepository } from "../repositories/carts.repository.js";
 
 export async function postUsuarios(req, res) {
     const {email, password, first_name, last_name, age} = req.body
     const carrito = new Cart({
         products: []
     })
-    const cart = await cartsManager.guardar(carrito.datos())
+    const cart = await cartsRepository.create(carrito.datos())
     const data = {
         email,
         age,

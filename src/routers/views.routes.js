@@ -28,12 +28,11 @@ viewsRouter.get("/register", async (req, res) => {
 viewsRouter.get('/products', auth, soloLogueadosView, async (req, res) => {
     const userName = req.user.first_name
     const carrito = req.user.cart
-    console.log(carrito)
     res.render('products', {
         title: "Productos", 
         user: userName || "usuario", 
         cartId: carrito,
-        urlToCard: `http://localhost:8080/carts/${carrito}`,
+        urlToCart: `http://localhost:8080/carts/${carrito}`,
     })
 })
 

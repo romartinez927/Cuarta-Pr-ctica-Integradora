@@ -31,10 +31,10 @@ const removePaginationHandlers = ({ nextPageClickHandler, prevPageClickHandler, 
     inputPage.removeEventListener('input', inputPageInputHandler)
 }
 
-const cartID = link.dataset
-console.log(cartID)
+const cartID = link.dataset.cart
+
 async function addProductCart(productId){
-    const FETCH_URL = `http://localhost:8080/api/carts/647c91b50f3c02d93f03fa58/products/${productId}`
+    const FETCH_URL = `http://localhost:8080/api/carts/${cartID}/products/${productId}`
     await fetch(FETCH_URL, { method: 'POST' })
     
 }

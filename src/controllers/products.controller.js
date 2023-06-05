@@ -1,11 +1,12 @@
 import { Producto } from "../entidades/Producto.js"
-import { productosManager } from "../dao/mongo/managers/productos.manager.js"
+// import { productosManager } from "../dao/mongo/managers/productos.manager.js"
+import { productosRepository } from "../repositories/products.repository.js"
 
 export async function handleGet(req, res, next) {
     const { limit, page, category, status, sort } = req.query
     
     try {
-        let product = await productosManager.read(page, limit, category, status, sort)
+        let product = await productosRepository.read(page, limit, category, status, sort)
 
         const productExist = () => {
             if(Boolean(product.docs)) return "success"
@@ -31,7 +32,7 @@ export async function handleGet(req, res, next) {
 
 export async function handleGetById(req, res, next) {
     try {
-        const producto = await productosManager.obtenerSegunId(req.params.pid)
+        const producto = await productosRepository.obtenerSegunId(req.params.pid)
         res.json(producto)
     } catch (error) {
         next(error)
@@ -41,7 +42,7 @@ export async function handleGetById(req, res, next) {
 export async function handlePost(req, res, next) {
     try {
         const producto = new Producto(req.body)
-        const productoGuardado = await productosManager.guardar(producto.datos())
+        const productoGuardado = await productosRepository.create(producto.datos())
         res.json(productoGuardado)
     } catch (error) {
         next(error)
@@ -51,7 +52,7 @@ export async function handlePost(req, res, next) {
 export async function handlePut(req, res, next) {
     try {
         const producto = new Producto(req.body)
-        const productoReemplazado = await productosManager.updateProduct(req.params.pid, producto.datos())
+        const productoReemplazado = await productosRepository.updateProduct(req.params.pid, producto.datos())
         res.json(productoReemplazado)
     } catch (error) {
         return next(error)  
@@ -60,7 +61,7 @@ export async function handlePut(req, res, next) {
 
 export async function handleDelete(req, res, next) {
     try {
-        const borrada = await productosManager.borrarSegunId(req.params.pid)
+        const borrada = await productosRepository.borrarSegunId(req.params.pid)
         res.json(borrada)
     } catch (error) {
         next(error)

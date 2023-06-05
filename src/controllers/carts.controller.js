@@ -1,10 +1,12 @@
 import { Cart } from "../entidades/Cart.js"
-import { cartsManager } from "../dao/mongo/managers/cart.manager.js"
-import { productosManager } from "../dao/mongo/managers/productos.manager.js"
+//import { cartsManager } from "../dao/mongo/managers/cart.manager.js"
+// import { productosManager } from "../dao/mongo/managers/productos.manager.js"
+import { cartsRepository } from "../repositories/carts.repository.js"
+import { productosRepository } from "../repositories/products.repository.js"
 
 export async function handleGet(req, res, next) {
     try {
-        const carritos = await cartsManager.obtenerTodos()
+        const carritos = await cartsRepository.obtenerTodos()
         res.json(carritos)
     } catch (error) {
         next(error)
@@ -13,9 +15,7 @@ export async function handleGet(req, res, next) {
 
 export async function handleGetById(req, res, next) {
     try {
-        const carrito = await cartsManager.obtenerSegunIdConPopulate(req.params.cid)
-        console.log("carrito")
-        console.log(carrito.products[0])
+        const carrito = await cartsRepository.obtenerSegunId(req.params.cid)
         res.json(carrito)
     } catch (error) {
         next(error)
@@ -27,7 +27,7 @@ export async function handlePost(req, res, next) {
         const carrito = new Cart({
             products: []
         })
-        const cart = await cartsManager.guardar(carrito.datos())
+        const cart = await cartsRepository.create(carrito.datos())
         res.json(cart)
     } catch (error) {
         next(error)
@@ -37,9 +37,9 @@ export async function handlePost(req, res, next) {
 export async function handlePostProduct(req, res, next) {
     try {
         const { cid, pid } = req.params
-        const product = await productosManager.obtenerSegunId(pid)
+        const product = await productosRepository.obtenerSegunId(pid)
         if (product._id) {
-          const cart = await cartsManager.addProductToCart(pid, cid)
+          const cart = await cartsRepository.addProductToCart(pid, cid)
           res.json(cart)
           return
         }
@@ -54,8 +54,7 @@ export async function handlePut(req, res, next) {
     const { quantity } = req.body
 
     try {
-        const newCart = await cartsManager.updateProduct(cid, pid, quantity)
-        console.log(newCart)
+        const newCart = await cartsRepository.updateProduct(cid, pid, quantity)
         res.json(newCart)
 
     } catch (error) {
@@ -66,9 +65,9 @@ export async function handlePut(req, res, next) {
 export async function handleDeleteCart(req, res, next) {
     try {
         const { cid } = req.params
-        const carrito = await cartsManager.obtenerSegunId(cid)
+        const carrito = await cartsRepository.obtenerSegunId(cid)
         if (carrito) {
-            const newCart = await cartsManager.deleteAllProducts(cid)
+            const newCart = await cartsRepository.deleteAllProducts(cid)
             res.json(newCart)
         }
         res.json({ msg: `El carrito con el id ${cid} no existe.` })
@@ -82,7 +81,7 @@ export async function handleDeleteProduct(req, res, next) {
         const { cid, pid } = req.params
         const product = await productosManager.obtenerSegunId(pid)
         if (product._id) {
-          const cart = await cartsManager.deleteProductFromCart(pid, cid)
+          const cart = await cartsRepository.deleteProductFromCart(pid, cid)
           res.json(cart)
           return
         }

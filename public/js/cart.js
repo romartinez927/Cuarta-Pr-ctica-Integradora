@@ -13,14 +13,11 @@ fetch(`${API_URL}`)
     data.products.forEach(({product, quantity}) => {
       products += `<br/>
         <div>
-            <h3>Title:${product[0].title}</h3>
-            <p>Description:${product[0].description}.</p>
-            <p>Price: $${product[0].price}</p> 
+            <h3>Id:${product}</h3>
             <p>Cantidad: ${quantity}</p> 
-            <p>Categoria: ${product[0].category}</p>
         </div><br/>
         `
-        console.log(`${product[0]._id}`)
+        console.log(data.products)
     });
     productContainer.innerHTML = products
 
