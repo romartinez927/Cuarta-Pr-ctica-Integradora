@@ -1,3 +1,5 @@
+import { newCode } from "../utils/code.js"
+
 export class Producto {
     #title
     #description

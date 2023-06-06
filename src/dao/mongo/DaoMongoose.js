@@ -1,3 +1,5 @@
+import { newCode } from "../../utils/code.js"
+
 function toPojo(object) {
   return JSON.parse(
     JSON.stringify(
@@ -64,7 +66,8 @@ export class DaoMongoose {
   async createTicket(totalAmount, purchaser) {
     const ticket = new this.#model({
       amount: totalAmount,
-      purchaser: purchaser
+      purchaser: purchaser,
+      code: newCode()
     });
     await ticket.save();
   };

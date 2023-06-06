@@ -109,8 +109,7 @@ export async function finalizePurchase(req, res, next) {
       if (productInStock && productInStock.stock >= quantity) {
         productInStock.stock -= quantity
         await productInStock.save()
-
-        totalAmount += product.price * quantity
+        totalAmount += productInStock.price * quantity
         cartsRepository.deleteProductFromCart(cid, product._id)
       } else {
         unavaliableProducts.push(product)
@@ -119,6 +118,7 @@ export async function finalizePurchase(req, res, next) {
     
     // ticket
     await ticketsRepository.createTicket(totalAmount, "romartinez@live.com")
+    await cartsRepository.deleteAllProducts(cid)
 
     res.status(200).send({ message: 'Successful purchase', unavaliableProducts: unavaliableProducts });
   } catch (error) {

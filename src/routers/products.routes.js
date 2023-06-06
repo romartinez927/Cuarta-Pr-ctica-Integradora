@@ -18,3 +18,4 @@ productsRouter.put('/:pid', isAdmin, productsController.handlePut)
 
 // eliminar producto según su id
 productsRouter.delete('/:pid', isAdmin, productsController.handleDelete)
+

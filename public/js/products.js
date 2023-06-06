@@ -36,7 +36,11 @@ const cartID = link.dataset.cart
 async function addProductCart(productId){
     const FETCH_URL = `http://localhost:8080/api/carts/${cartID}/products/${productId}`
     await fetch(FETCH_URL, { method: 'POST' })
-    
+}
+
+function finalizarCompra() {
+    alert("compra finalizada")
+    window.location.href = `/api/carts/${cartID}/purchase`
 }
 
 const eventUploadFetch = (page) => {
@@ -161,6 +165,10 @@ if (formProductos instanceof HTMLFormElement) {
                 },
                 body: JSON.stringify(data),
             })
+            window.location.href = '/products'
+        }
+        else {
+            alert("no autorizado")
         }
     })
 }
