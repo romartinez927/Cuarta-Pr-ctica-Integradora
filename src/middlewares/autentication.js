@@ -1,3 +1,4 @@
+import { usersRepository } from "../repositories/users.repository.js"
 import { autenticacionUserPass, autenticacionPorGithub } from "./passport.js"
 
 export function auth(req, res, next) {
@@ -18,11 +19,11 @@ export function alreadyHasSession(req, res, next) {
     next()
 }
 
-const isAdmin = async (req, res, next) => {
-    const userEmail = req.session.user?.email;
+export const isAdmin = async (req, res, next) => {
+    const userEmail = req.user?.email;
     try {
         if (userEmail) {
-            const user = await usersService.getUserByEmail(userEmail);
+            const user = await usersRepository.getUserByEmail(userEmail);
             if (user.role === 'admin') {
                 next();
             } else {
@@ -36,13 +37,13 @@ const isAdmin = async (req, res, next) => {
     }
 }
 
-const isUser = async (req, res, next) => {
-    const userEmail = req.session.user?.email;
+export const isUser = async (req, res, next) => {
+    const userEmail = req.user?.email
     try {
         if (userEmail) {
-            const user = await usersService.getUserByEmail(userEmail);
+            const user = await usersRepository.getUserByEmail(userEmail)
             if (user.role === 'user') {
-                next();
+                next()
             } else {
                 res.status(403).json({ message: 'Access denied' })
             }

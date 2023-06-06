@@ -8,15 +8,12 @@ export class Producto {
     #status
     #thumbnails
 
-    constructor({ title, description, code, price, stock, category, thumbnails }) {
+    constructor({ title, description, code = newCode(), price, stock, category, thumbnails }) {
         if (!title || typeof title !== 'string') throw new Error("falta el titulo")
         this.#title = title
 
         if (!description || typeof description !== 'string') throw new Error("falta la descripción")
         this.#description = description
-
-        if (!code || typeof code !== 'string') throw new Error("falta el code")
-        this.#code = code
 
         if (!price) throw new Error("falta el precio")
         this.#price = price
@@ -28,6 +25,8 @@ export class Producto {
 
         if (!category || typeof category !== 'string') throw new Error("falta la categoria")
         this.#category = category
+
+        this.#code = code
 
         if (typeof thumbnails !== 'string') throw new Error("el thumbnail debe ser un string")
         this.#thumbnails = thumbnails

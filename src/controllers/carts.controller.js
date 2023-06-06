@@ -1,8 +1,10 @@
-import { Cart } from "../entidades/Cart.js"
+import { Cart } from "../models/Cart.js"
 //import { cartsManager } from "../dao/mongo/managers/cart.manager.js"
 // import { productosManager } from "../dao/mongo/managers/productos.manager.js"
 import { cartsRepository } from "../repositories/carts.repository.js"
 import { productosRepository } from "../repositories/products.repository.js"
+import { ticketsRepository } from "../repositories/tickets.repository.js"
+import { getCurrentSessionController } from "./sesiones.controler.js"
 
 export async function handleGet(req, res, next) {
     try {
@@ -89,4 +91,37 @@ export async function handleDeleteProduct(req, res, next) {
     } catch (error) {
         next(error)
     }
+}
+
+export async function finalizePurchase(req, res, next) {
+    const { cid } = req.params
+
+  try {
+    const cart = await cartsRepository.obtenerSegunIdPop(cid)
+    const unavaliableProducts = []
+    let totalAmount = 0
+
+    for (const item of cart.products) {
+      const product = item.product
+      const quantity = item.quantity
+      const productInStock = await productosRepository.obtenerSegunId(product)
+
+      if (productInStock && productInStock.stock >= quantity) {
+        productInStock.stock -= quantity
+        await productInStock.save()
+
+        totalAmount += product.price * quantity
+        cartsRepository.deleteProductFromCart(cid, product._id)
+      } else {
+        unavaliableProducts.push(product)
+      }
+    }
+    
+    // ticket
+    await ticketsRepository.createTicket(totalAmount, "romartinez@live.com")
+
+    res.status(200).send({ message: 'Successful purchase', unavaliableProducts: unavaliableProducts });
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
 }

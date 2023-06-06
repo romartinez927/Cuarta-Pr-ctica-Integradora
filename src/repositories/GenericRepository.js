@@ -18,6 +18,10 @@ export class GenericRepository {
     return this.#dao.getById(id)
   }
 
+  obtenerSegunIdPop(id) {
+    return this.#dao.getByIdWithPopulate(id)
+  }
+
   async borrarSegunId(id) {
     return this.#dao.deleteById(id)
   }

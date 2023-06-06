@@ -9,7 +9,7 @@ const cartSchema = new Schema({
     type: Array, default: [],
     ref: "products" 
   }
-})
+}, {versionKey: false})
 
 export const cartModel = mongoose.model(cartCollection, cartSchema)
 

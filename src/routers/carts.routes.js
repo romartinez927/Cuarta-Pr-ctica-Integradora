@@ -25,3 +25,6 @@ cartsRouter.delete("/:cid", cartsController.handleDeleteCart)
 // eliminar del carrito el producto seleccionado
 cartsRouter.delete("/:cid/products/:pid", cartsController.handleDeleteProduct)
 
+// finalizar compra
+cartsRouter.get("/:cid/purchase", cartsController.finalizePurchase)
+

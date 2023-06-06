@@ -7,7 +7,7 @@ const messagesCollection = 'messages'
 const messageSchema = new Schema({
   user: { type: String, required: true },
   message: { type: String, required: true }
-})
+}, {versionKey: false})
 
 const messageModel = mongoose.model(messagesCollection, messageSchema)
 

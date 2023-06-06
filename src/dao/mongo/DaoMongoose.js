@@ -30,6 +30,11 @@ export class DaoMongoose {
     return result
   }
 
+  async getByIdWithPopulate(id) {
+    const result = await this.#model.findById(id).populate("products.product").lean()
+    return result
+  }
+
   async findByEmail(email) {
     const result = await this.#model.findOne({ email })
     return result
@@ -55,6 +60,14 @@ export class DaoMongoose {
     const result = await this.#model.findByIdAndUpdate(cartId, cart)
     return result
   }
+
+  async createTicket(totalAmount, purchaser) {
+    const ticket = new this.#model({
+      amount: totalAmount,
+      purchaser: purchaser
+    });
+    await ticket.save();
+  };
 
   async deleteProdFromCart(productId, cartId) {
     const result = await this.#model.updateOne({ _id: cartId }, { $pull: { products: { _id: productId } } })

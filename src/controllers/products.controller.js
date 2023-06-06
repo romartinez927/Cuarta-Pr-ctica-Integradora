@@ -1,4 +1,4 @@
-import { Producto } from "../entidades/Producto.js"
+import { Producto } from "../models/Producto.js"
 // import { productosManager } from "../dao/mongo/managers/productos.manager.js"
 import { productosRepository } from "../repositories/products.repository.js"
 

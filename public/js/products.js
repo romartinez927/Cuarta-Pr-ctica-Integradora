@@ -131,7 +131,6 @@ if (formProductos instanceof HTMLFormElement) {
 
         const inputPrice = document.querySelector('#inputPrice')
         const inputDescription = document.querySelector('#inputDescription')
-        const inputCode = document.querySelector('#inputCode')
         const inputCategory = document.querySelector('#inputCategory')
         const inputStock = document.querySelector('#inputStock')
         const inputTitle = document.querySelector('#inputTitle')
@@ -140,7 +139,6 @@ if (formProductos instanceof HTMLFormElement) {
         if (
             inputPrice instanceof HTMLInputElement &&
             inputDescription instanceof HTMLInputElement &&
-            inputCode instanceof HTMLInputElement &&
             inputCategory instanceof HTMLInputElement &&
             inputStock instanceof HTMLInputElement &&
             inputTitle instanceof HTMLInputElement &&
@@ -150,7 +148,6 @@ if (formProductos instanceof HTMLFormElement) {
                 price: inputPrice.value,
                 title: inputTitle.value,
                 description: inputDescription.value,
-                code: inputCode.value,
                 stock: inputStock.value,
                 category: inputCategory.value,
                 thumbnails: inputThumbnail.value
