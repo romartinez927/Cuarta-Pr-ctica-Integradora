@@ -11,7 +11,7 @@ productsRouter.get('/', productsController.handleGet)
 productsRouter.get('/:pid', productsController.handleGetById)
 
 // crear nuevo producto
-productsRouter.post('/', isAdmin, productsController.handlePost)
+productsRouter.post('/', productsController.handlePost)
 
 // actualizar el producto según su id
 productsRouter.put('/:pid', isAdmin, productsController.handlePut)

@@ -1,4 +1,5 @@
 import { newCode } from "../utils/code.js"
+import { obligatorio, validarCadena, validarEnteroPositivo } from "../utils/validations.js"
 
 export class Producto {
     #title
@@ -11,26 +12,24 @@ export class Producto {
     #thumbnails
 
     constructor({ title, description, code = newCode(), price, stock, category, thumbnails }) {
-        if (!title || typeof title !== 'string') throw new Error("falta el titulo")
-        this.#title = title
+        obligatorio(title, 'title')
+        this.#title = validarCadena(title, "title")
 
-        if (!description || typeof description !== 'string') throw new Error("falta la descripción")
-        this.#description = description
+        obligatorio(description, 'description')
+        this.#description = validarCadena(description, "description")
 
-        if (!price) throw new Error("falta el precio")
-        this.#price = price
+        obligatorio(price, 'price')
+        this.#price = validarEnteroPositivo(price, "price")
 
         this.#status = true
 
-        if (!stock) throw new Error("falta el stock")
-        this.#stock = stock
+        obligatorio(stock, 'stock')
+        this.#stock = validarEnteroPositivo(stock, "stock")
 
-        if (!category || typeof category !== 'string') throw new Error("falta la categoria")
-        this.#category = category
+        obligatorio(category, 'category')
+        this.#category = validarCadena(category, "category")
 
         this.#code = code
-
-        if (typeof thumbnails !== 'string') throw new Error("el thumbnail debe ser un string")
         this.#thumbnails = thumbnails
     }
 
