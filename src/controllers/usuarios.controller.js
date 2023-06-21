@@ -1,6 +1,4 @@
 import { encriptar } from "../utils/crypto.js";
-// import { usersModel } from "../dao/mongo/models/users.model.js";
-//import { cartsManager } from "../dao/mongo/managers/cart.manager.js";
 import { Cart } from "../models/Cart.js";
 import { cartsRepository } from "../repositories/carts.repository.js";
 import { usersRepository } from "../repositories/users.repository.js";
@@ -34,6 +32,7 @@ export async function postUsuarios(req, res) {
         if (error) {
             next(new Error('falló el login!'))
         } else {
+            req.logger.info('login success')
             res.status(201).send(req.usuarioCreado)
         }
     })

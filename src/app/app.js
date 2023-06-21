@@ -11,6 +11,8 @@ import cookieParser from 'cookie-parser'
 import MongoStore from "connect-mongo"
 import { URL } from '../../config/database.config.js'
 import { passportInitialize, passportSession } from '../middlewares/passport.js'
+import { addLogger } from '../utils/logger.js'
+import { loggerRouter } from '../routers/logger.routes.js'
 
 await conectar()
 
@@ -40,9 +42,13 @@ export const io = new Server(server)
 
 app.use(passportInitialize, passportSession)
 
+app.use(addLogger)
+
 app.use("/api", apiRouter)
 app.use("/chat", chatRouter)
+app.use('/loggerTest', loggerRouter)
 app.use("/", viewsRouter)
+
 
 
 

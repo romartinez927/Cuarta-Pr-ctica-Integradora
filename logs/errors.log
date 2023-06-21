@@ -1,0 +1,50 @@
+fatal: GET en /products - 13:50:27
+error: GET en /products - 13:50:27
+fatal: GET en /login - 13:50:27
+error: GET en /login - 13:50:27
+fatal: GET en /login - 13:50:42
+error: GET en /login - 13:50:42
+fatal: GET en /login - 14:21:41
+error: GET en /login - 14:21:41
+fatal: GET en /login - 14:28:31
+error: GET en /login - 14:28:31
+fatal: GET en /logerRouter - 14:35:27
+error: GET en /logerRouter - 14:35:27
+fatal: GET en /loggerRouter - 14:35:35
+error: GET en /loggerRouter - 14:35:35
+fatal: GET en /loggerTest - 14:36:59
+error: GET en /loggerTest - 14:36:59
+error: Prueba de error
+fatal: GET en /loggerTest - 14:38:15
+error: GET en /loggerTest - 14:38:15
+error: Prueba de error
+fatal: GET en / - 14:57:01
+error: GET en / - 14:57:01
+fatal: GET en /login - 14:57:01
+error: GET en /login - 14:57:01
+fatal: POST en /api/sesiones - 14:57:03
+error: POST en /api/sesiones - 14:57:03
+fatal: GET en /products - 14:57:05
+error: GET en /products - 14:57:05
+fatal: GET en /api/products?page=1& - 14:57:06
+error: GET en /api/products?page=1& - 14:57:06
+fatal: GET en /products - 14:57:15
+error: GET en /products - 14:57:15
+fatal: POST en /api/products - 14:57:15
+error: POST en /api/products - 14:57:15
+error: error saving product: 
+fatal: GET en /api/products?page=1& - 14:57:15
+error: GET en /api/products?page=1& - 14:57:15
+fatal: GET en /products - 15:33:37
+error: GET en /products - 15:33:37
+fatal: GET en /login - 15:33:37
+error: GET en /login - 15:33:37
+fatal: GET en /login - 15:34:24
+error: GET en /login - 15:34:24
+fatal: GET en /login - 15:35:59
+error: GET en /login - 15:35:59
+error: GET en /login - 15:36:39
+error: GET en /login - 15:37:02
+fatal: GET en /login - 15:37:02
+error: Prueba de error
+error: error saving product: 

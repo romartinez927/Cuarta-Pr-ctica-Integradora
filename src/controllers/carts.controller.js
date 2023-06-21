@@ -11,7 +11,8 @@ export async function handleGet(req, res, next) {
         const carritos = await cartsRepository.obtenerTodos()
         res.json(carritos)
     } catch (error) {
-        next(error)
+        res.status(500).send(error.message)
+        req.logger.error(`Error getting carts: ${error.message}`)
     }
 }
 
@@ -20,7 +21,8 @@ export async function handleGetById(req, res, next) {
         const carrito = await cartsRepository.obtenerSegunId(req.params.cid)
         res.json(carrito)
     } catch (error) {
-        next(error)
+        req.logger.error(`Error obtaining a cart by id: ${error.message}`)
+        res.status(500).send(error.message)
     }
 }
 
