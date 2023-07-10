@@ -1,7 +1,7 @@
-import { encriptar } from "../utils/crypto.js";
-import { Cart } from "../models/Cart.js";
-import { cartsRepository } from "../repositories/carts.repository.js";
-import { usersRepository } from "../repositories/users.repository.js";
+import { encriptar } from "../utils/crypto.js"
+import { Cart } from "../models/Cart.js"
+import { cartsRepository } from "../repositories/carts.repository.js"
+import { usersRepository } from "../repositories/users.repository.js"
 
 export async function postUsuarios(req, res) {
     const {email, password, first_name, last_name, age} = req.body

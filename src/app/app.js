@@ -13,6 +13,7 @@ import { URL } from '../../config/database.config.js'
 import { passportInitialize, passportSession } from '../middlewares/passport.js'
 import { addLogger } from '../utils/logger.js'
 import { loggerRouter } from '../routers/logger.routes.js'
+import { forgotRouter } from '../routers/forgot.routes.js'
 
 await conectar()
 
@@ -47,6 +48,7 @@ app.use(addLogger)
 app.use("/api", apiRouter)
 app.use("/chat", chatRouter)
 app.use('/loggerTest', loggerRouter)
+app.use("/forgot", forgotRouter)
 app.use("/", viewsRouter)
 
 

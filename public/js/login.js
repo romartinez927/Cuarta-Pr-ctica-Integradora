@@ -1,5 +1,6 @@
 const formLogin = document.querySelector('#formLogin')
 const redirigirRegistroBtn = document.querySelector("#redirigirRegistro")
+const redirigirAReestablecerPassBtn = document.querySelector("#resetPassword")
 
 if (formLogin instanceof HTMLFormElement) {
     formLogin.addEventListener('submit', async event => {
@@ -41,3 +42,9 @@ function irRegistro() {
 }
 
 redirigirRegistroBtn.addEventListener("click", irRegistro)
+
+function irARestablecerPass() {
+    window.location.href = '/forgot'
+}
+
+redirigirAReestablecerPassBtn.addEventListener("click", irARestablecerPass)

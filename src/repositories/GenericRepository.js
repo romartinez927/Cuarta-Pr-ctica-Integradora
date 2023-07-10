@@ -7,7 +7,11 @@ export class GenericRepository {
   get dao() { return this.#dao }
 
   create(data, options) {
-    return this.#dao.create(data)
+    try {
+      return this.#dao.create(data)
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   obtenerTodos() {
@@ -21,8 +25,16 @@ export class GenericRepository {
   obtenerSegunIdPop(id) {
     return this.#dao.getByIdWithPopulate(id)
   }
+  
+  updateUserPassword(user, newPassword) {
+    return this.#dao.updateOne({ email: user }, { $set: { password: newPassword } })
+  }
 
-  async borrarSegunId(id) {
+  async updatePassword(email, newPassword) {
+    return await this.#dao.updateOne({ email: email }, { $set: { password: newPassword } })
+}
+
+  borrarSegunId(id) {
     return this.#dao.deleteById(id)
   }
 
