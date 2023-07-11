@@ -1,6 +1,5 @@
 const formForgot = document.getElementById('formForgot')
 const token = window.location.pathname.split('/')[2]
-console.log("AAA" + token)
 const API_URL = `/forgot/${token}`
 
 if (formForgot instanceof HTMLFormElement) {
@@ -35,7 +34,7 @@ if (formForgot instanceof HTMLFormElement) {
                 alert("Contraseña actualizada Exitosamente! Lo estamos redirigiendo, debera iniciar sesión")
                 setTimeout(() => {
                 window.location.href = '/login'
-                }, 5000)
+                }, 2000)
             } else {
                 alert("no se pudo actualizar la contraseña")
             }

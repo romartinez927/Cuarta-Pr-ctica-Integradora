@@ -3,7 +3,6 @@ import { GenericRepository } from './GenericRepository.js'
 
 class UsersRepository extends GenericRepository {
     constructor(dao) { super(dao) }
-    // chequear este punto si no funciona
     getUserByEmail = async (email) => {
         let result = await this.dao.findByEmail(email)
         return result
@@ -18,13 +17,8 @@ class UsersRepository extends GenericRepository {
     }
 
     async updateUser(userId, updateFields) {
-        // const updatedUser = await this.dao.findOneAndUpdate({ _id: userId }, { $set: updateFields }, { new: true }) 
-        return await this.dao.updateOne(userId, updateFields)
+        return await this.dao.updateRole(userId, updateFields)
     }
-
-    // async updatePassword(email, newPassword) {
-    //     return await this.dao.findOneAndUpdate({ email }, { password: newPassword })
-    // }
     
   }
 

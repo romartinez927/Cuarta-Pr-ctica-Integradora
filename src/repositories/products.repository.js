@@ -3,7 +3,6 @@ import { productModel, productosDaoMongoose } from '../dao/mongo/products.dao.mo
 
 class ProductosRepository extends GenericRepository {
   constructor(dao) { super(dao) }
-  // chequear este punto si no funciona
   async updateProduct(productId, product) {
     const result = await this.dao.updateById(productId, product)
     return result

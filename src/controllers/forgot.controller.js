@@ -2,6 +2,7 @@ import { createTransport } from 'nodemailer'
 import { encriptar } from '../utils/crypto.js';
 import { usersRepository } from '../repositories/users.repository.js';
 import jwt from 'jsonwebtoken';
+import { validarPassword } from '../utils/validations.js';
 
 const clienteNodemailer = createTransport({
     host: 'smtp.ethereal.email',
@@ -39,29 +40,26 @@ export const resetPasswordController = async (req, res) => {
     const { email, password } = req.body;
 
     let newPassword = encriptar(password)
-    console.log(newPassword)
 
     try {
         if (!email || !password ) {
             console.log("completar todos los campos")
         }
 
-        // if (!isValidPassword(repeatPassword, newPassword)) {
-        //     return res.status(400).json({ message: 'error', data: 'passwords do not match' })
-        // }
-
         const user = await usersRepository.getUserByEmail(email)
-        console.log(user)
 
         if (!user) {
             return res.status(404).json({ message: 'error', data: 'User not exist' })
         } else {
+            if (newPassword == user.password) {
+                return res.status(404).json({message: 'error', data: 'Cannot reset the password using the old password'})
+            }
             user.password = newPassword
             const result = await usersRepository.updateUserPassword(email, newPassword)
-            console.log(result)
-            return result
+        
             if (user) {
-                return res.status(200).json({ message: 'success', data: 'Password Updated' })
+                res.render("login", {title: "Login"})
+                return result
             }
         }
     } catch (error) {
@@ -79,7 +77,7 @@ export const resetPasswordEmailController = async (req, res) => {
         console.log(user)
         if (user) {
             const result = await usersRepository.updatePassword(email, newPassword)
-            console.log(result)
+            res.render("login", {title: "Login"})
             return result
         } else {
             res.send('ERROR')
@@ -90,31 +88,7 @@ export const resetPasswordEmailController = async (req, res) => {
 
 };
 
-export const resetPasswordCreateController = async (req, res) => {
-    // se crea el token
-    const { key } = req.params;
-
-    const token = crypto.randomBytes(20).toString('hex');
-    // send Mail
-    sendResetPasswordEmail({ key, token })
-
-
-    const resetPassword = new resetPasswordModel({
-        email: key,
-        token: token,
-        status: true,
-    })
-
-    const result = await resetPassword.save();
-
-    if (result) {
-        res.send(`Reset password for user ${result}`);
-    } else {
-        res.send('ERROR')
-    }
-}
-
 export const resetPasswordPageController = async (req, res) => {
-    res.render('resetpassword', { title: 'Reset Password', stylesheet: 'resetpassword' })
+    res.render('forgot', { title: 'Reset Password', stylesheet: 'resetpassword' })
 
 }

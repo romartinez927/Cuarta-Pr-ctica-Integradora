@@ -43,11 +43,11 @@ import { productosRepository } from "./src/repositories/products.repository.js"
 // const token = jwt.sign({ email: "hola" }, secretKey, { expiresIn: '1h' })
 // console.log(token)
 
-// let email = "romartinez@live.com"
-// let newPassword = "newPassword"
+let email = "romartinez@live.com"
+let newPassword = "newPassword"
 
-// const result = await usersRepository.updatePassword(email, newPassword)
-// console.log(result)
+const result = await usersRepository.updatePassword(email, newPassword)
+console.log(result)
 
 // const producto = new Producto({
 //     title: "Coca Cola",
@@ -60,7 +60,10 @@ import { productosRepository } from "./src/repositories/products.repository.js"
 //     const productoGuardado = await productosRepository.create(producto.datos())
 //     console.log(productoGuardado)
 
-const uid = "647f248ff49759e694b865c2"
-const updateFields = "premium"
+// const uid = "647f248ff49759e694b865c2"
+// const updateFields = "premium"
 
-const response = await usersRepository.updateUser(uid, updateFields)
+// const response = await usersRepository.updateUser(uid, updateFields)
+
+const user = await usersRepository.getUserByEmail("ro@live.com")
+console.log(user)
