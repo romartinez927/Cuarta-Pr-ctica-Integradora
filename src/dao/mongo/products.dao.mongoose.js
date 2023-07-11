@@ -12,18 +12,7 @@ const productSchema = new Schema({
     code: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
     status: { type: Boolean },
-    owner: {
-        type: String,
-        default: 'admin',
-        validate: {
-            validator: async function (value) {
-                const user = await usersModel.findOne({ email: value });
-                console.log(user)
-                return user && user.role === 'premium';
-            },
-            message: 'Only premium users can be assigned as owner.'
-        }
-    },
+    owner: { type: String, enum: ["admin", "premium"], default: 'admin',},
     stock: { type: Number, required: true },
     category: { type: String, required: true },
     thumbnails: { type: String },

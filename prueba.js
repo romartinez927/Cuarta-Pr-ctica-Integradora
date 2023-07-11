@@ -36,13 +36,31 @@
 // }
 import jwt from "jsonwebtoken"
 import { usersRepository } from "./src/repositories/users.repository.js"
+import { Producto } from "./src/models/Producto.js"
+import { productosRepository } from "./src/repositories/products.repository.js"
 
 // const secretKey = "secreto"
 // const token = jwt.sign({ email: "hola" }, secretKey, { expiresIn: '1h' })
 // console.log(token)
 
-let email = "romartinez@live.com"
-let newPassword = "newPassword"
+// let email = "romartinez@live.com"
+// let newPassword = "newPassword"
 
-const result = await usersRepository.updatePassword(email, newPassword)
-console.log(result)
+// const result = await usersRepository.updatePassword(email, newPassword)
+// console.log(result)
+
+// const producto = new Producto({
+//     title: "Coca Cola",
+//     price: 100,
+//     description: "descripcion",
+//     category: "product",
+//     stock: 10,
+    
+// })
+//     const productoGuardado = await productosRepository.create(producto.datos())
+//     console.log(productoGuardado)
+
+const uid = "647f248ff49759e694b865c2"
+const updateFields = "premium"
+
+const response = await usersRepository.updateUser(uid, updateFields)

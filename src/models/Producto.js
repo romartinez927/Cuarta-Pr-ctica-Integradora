@@ -1,6 +1,5 @@
 import { newCode } from "../utils/code.js"
 import { obligatorio, validarCadena, validarEnteroPositivo } from "../utils/validations.js"
-
 export class Producto {
     #title
     #description
@@ -19,12 +18,12 @@ export class Producto {
         this.#description = validarCadena(description, "description")
 
         obligatorio(price, 'price')
-        this.#price = validarEnteroPositivo(price, "price")
+        this.#price = price
 
         this.#status = true
 
         obligatorio(stock, 'stock')
-        this.#stock = validarEnteroPositivo(stock, "stock")
+        this.#stock = price
 
         obligatorio(category, 'category')
         this.#category = validarCadena(category, "category")

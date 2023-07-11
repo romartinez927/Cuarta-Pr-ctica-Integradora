@@ -42,9 +42,14 @@ export async function handleGetById(req, res, next) {
 }
 
 export async function handlePost(req, res, next) {
+    console.log(req.body)
+    const producto = new Producto(req.body)
+    console.log(producto)
     try {
         const producto = new Producto(req.body)
+        console.log(producto)
         const productoGuardado = await productosRepository.create(producto.datos())
+        console.log(productoGuardado)
         res.json(productoGuardado)
     } catch (error) {
         req.logger.error(`error saving product: ${error.message}`)

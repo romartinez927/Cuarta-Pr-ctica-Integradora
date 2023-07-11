@@ -5,6 +5,7 @@ import { cartsRouter } from "./carts.routes.js"
 import { chatRouter } from "./chat.routes.js"
 import { sessionRouter } from "./session.routes.js"
 import { generateProduct } from "../utils/generateProduct.js"
+import { usersRouter } from "./users.routes.js"
 
 export const apiRouter = Router()
 
@@ -22,17 +23,4 @@ apiRouter.use("/mockingproducts", async(req, res) => {
     res.send({status: "success", payload:users})
 })
 apiRouter.use("/", sessionRouter)
-
-// apiRouter.use((error, req, res, next) => {
-//     switch (error.message) {
-//         case 'id no encontrado':
-//             res.status(404)
-//             break
-//         case 'falta un argumento':
-//             res.status(400)
-//             break
-//         default:
-//             res.status(500)
-//     }
-//     res.json({ message: error.message })
-// })
+apiRouter.use("/users", usersRouter)

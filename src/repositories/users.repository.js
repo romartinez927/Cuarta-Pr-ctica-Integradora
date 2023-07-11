@@ -1,4 +1,4 @@
-import { usersDaoMongoose } from '../dao/mongo/users.dao.mongoose.js'
+import { usersDaoMongoose, usersModel } from '../dao/mongo/users.dao.mongoose.js'
 import { GenericRepository } from './GenericRepository.js'
 
 class UsersRepository extends GenericRepository {
@@ -17,10 +17,15 @@ class UsersRepository extends GenericRepository {
         }
     }
 
+    async updateUser(userId, updateFields) {
+        // const updatedUser = await this.dao.findOneAndUpdate({ _id: userId }, { $set: updateFields }, { new: true }) 
+        return await this.dao.updateOne(userId, updateFields)
+    }
+
     // async updatePassword(email, newPassword) {
     //     return await this.dao.findOneAndUpdate({ email }, { password: newPassword })
     // }
-
+    
   }
 
 export const usersRepository = new UsersRepository(usersDaoMongoose)

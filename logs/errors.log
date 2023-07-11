@@ -48,3 +48,21 @@ error: GET en /login - 15:37:02
 fatal: GET en /login - 15:37:02
 error: Prueba de error
 error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: 
+error: error saving product: products validation failed: owner: usersModel is not defined
+error: error saving product: products validation failed: owner: Only premium users can be assigned as owner.
+error: error saving product: products validation failed: owner: Only premium users can be assigned as owner.
+error: error saving product: products validation failed: owner: Only premium users can be assigned as owner.

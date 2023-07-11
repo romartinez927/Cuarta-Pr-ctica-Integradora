@@ -53,6 +53,11 @@ export class DaoMongoose {
     return result
   }
 
+  async updateUser(userId, updateFields) {
+    const updatedUser = await this.#model.findOneAndUpdate({ _id: userId }, { $set: updateFields }, { new: true }) 
+  }
+
+
   async readMany(criteria) {
     const result = await this.#model.find(criteria).select({ _id: 0 }).lean()
     return result
@@ -88,9 +93,7 @@ export class DaoMongoose {
   }
 
   async updateOne(criteria, newData) {
-    const modifiedUser = await this.#model.findOneAndUpdate(criteria, newData, { new: true, projection: { _id: 0 } }).lean()
-    if (!modifiedUser) throw new Error('NOT FOUND')
-    delete modifiedUser._id
+    const modifiedUser = await this.#model.updateOne({ _id: criteria }, { $set: { "role": newData } })
     return modifiedUser
   }
 
