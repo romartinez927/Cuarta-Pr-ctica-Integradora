@@ -14,6 +14,8 @@ import { passportInitialize, passportSession } from '../middlewares/passport.js'
 import { addLogger } from '../utils/logger.js'
 import { loggerRouter } from '../routers/logger.routes.js'
 import { forgotRouter } from '../routers/forgot.routes.js'
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
 
 await conectar()
 
@@ -28,7 +30,7 @@ app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
         mongoUrl: URL,
-        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
         ttl: 1000
     }),
     secret: 'secreto',
@@ -44,6 +46,25 @@ export const io = new Server(server)
 app.use(passportInitialize, passportSession)
 
 app.use(addLogger)
+
+
+const swaggerOptions = {
+    definition: {
+        openApi: '3.0.1',
+        info: {
+            title: 'API de Carritos y Productos',
+            description: 'Documentación de la API para gestionar carritos y productos en mi ecommerce'
+        },
+        
+    },
+    apis: [
+        './src/docs/**/*.yaml',
+    ]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+
+app.use('/api-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 app.use("/api", apiRouter)
 app.use("/chat", chatRouter)
